@@ -1,0 +1,117 @@
+{* This is the welcome page, you can delete it *}
+
+{block content}
+
+<div class="row mb-4">
+    <div class="col-md-12 ">
+        <a n:href="Employees:form" class="float-right btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fa fa-plus"></i>
+                                        </span>
+            <span class="text">Add</span>
+        </a>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+    </div>
+
+    {if $total > 0}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Surname</th>
+                                <th>Sex</th>
+                                <th>Date of birth</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {foreach $employees as $employee}
+                                <tr>
+                                    <td>{$employee['name']}</td>
+                                    <td>{$employee['surname']}</td>
+                                    <td>{$employee['sex']}</td>
+                                    <td>{date("d.m.Y", strtotime($employee['date']))}</td>
+                                    <td>
+                                        <a n:href="Employees:edit, $employee['@attributes']['id']" class="btn btn-info btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fa fa-edit"></i>
+                                        </span>
+                                            <span class="text">Edit</span>
+                                        </a>
+
+                                        <a n:href="Employees:delete, $employee['@attributes']['id']" class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                        <i class="fa fa-minus-circle"></i>
+                                        </span>
+                                            <span class="text">Delete</span>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            {/foreach}
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-12 col-md-5 pl-4">
+                <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
+                    Showing {$startRecord} to
+
+                    {if $endRecord < $total}
+                        {$endRecord}
+                    {else}
+                        {$total}
+                    {/if} of
+
+                    {$total} entries
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-7">
+                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                    <ul class="pagination">
+                        {for $index = 1; $index < ceil($totalPage) + 1; $index++}
+                            <li class="paginate_button {if $index == $page} page-item active {/if}">
+                                <a n:href="Employees:default , $index" aria-controls="dataTable"
+                                                                       data-dt-idx="1" tabindex="0"
+                                                                       class="page-link">{$index}</a></li>
+                        {/for}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    {else}
+        <div class="row alert-data">
+            <div class="col-md-12">
+                <div class="no-data"> {$notData} </div>
+            </div>
+
+        </div>
+
+
+    {/if}
+
+</div>
+
+{block scripts}
+
+{/block}

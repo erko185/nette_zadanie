@@ -1,0 +1,47 @@
+<form n:name="form">
+    <div class="row">
+
+        <div class="col-md-6">
+            {label name, class => form-label /}
+        {input name, class => form-control}
+        </div>
+
+        <div class="col-md-6">
+            {label surname, class => form-label /}
+        {input surname, class => form-control}
+        </div>
+
+
+    </div>
+
+    <div class="row mt-4">
+
+        <div class="col-md-6">
+            {label sex, class => form-check-label /}<br>
+        {input sex, class => form-check-input}
+        </div>
+
+        <div class="col-md-1 min-number">
+            {label day, class => form-label /}
+        {input day, class => form-control}
+        </div>
+
+        <div class="col-md-1 min-number">
+            {label month, class => form-label /}
+        {input month, class => form-control}
+        </div>
+
+        <div class="col-md-2 min-year">
+            {label year, class => form-label /}
+        {input year, class => form-control}
+        </div>
+
+    </div>
+
+    <div class="row mt-4">
+        <div class="offset-md-4 col-md-4">
+            {input send, class => "btn btn-primary btn-user btn-block"}
+        </div>
+
+    </div>
+</form>
