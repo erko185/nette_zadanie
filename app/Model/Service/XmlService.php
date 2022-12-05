@@ -70,7 +70,7 @@ class XmlService
 
     public function getSpecificRecord($id, $attribute){
 
-        $data = $this->xmlFile->xpath('//*[@'.$attribute.'="' . $id . '"]');
+        $data = $this->dataGetByAttribute($id, $attribute);
 
         if(sizeof($data)){
             $json= json_encode($data);
@@ -91,25 +91,20 @@ class XmlService
 
     public function updateRecord($id, $data, $attribute){
 
-        foreach ($this->xmlFile as $xml) {
-            if (isset($xml->attributes()[$attribute]) && $xml->attributes()[$attribute] == $id) {
 
+        $dataGet = $this->dataGetByAttribute($id, $attribute);
 
-                foreach ($data as $key => $value){
-                    if($xml->$key){
-                        $xml->$key = $value;
-                    }
-                    else{
-                        $xml->$key = $value;
-                    }
-                }
-
-                return $this->saveXml();
+        foreach ($data as $key => $value){
+            if($dataGet[0]->$key){
+                $dataGet[0]->$key = $value;
             }
-
+            else{
+                $dataGet[0]->$key = $value;
+            }
         }
 
-        return  false;
+        return $this->saveXml();
+
     }
 
 
@@ -122,7 +117,7 @@ class XmlService
 
     public function deleteSpecificRecord($id, $attribute){
 
-        $data = $this->xmlFile->xpath('//*[@'.$attribute.'="' . $id . '"]');
+        $data = $this->dataGetByAttribute($id, $attribute);
 
         if(sizeof($data)){
             $dom=dom_import_simplexml($data[0]);
@@ -199,6 +194,18 @@ class XmlService
        }
 
        return 0;
+
+    }
+
+    /**
+     * get specific record
+     * @param $attribute
+     * @param $id
+     * @return SimpleXMLElement[]
+     */
+    public function dataGetByAttribute($id, $attribute){
+
+        return $this->xmlFile->xpath('//*[@'.$attribute.'="' . $id . '"]');
 
     }
 
