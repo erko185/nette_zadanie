@@ -70,14 +70,11 @@ class XmlService
 
     public function getSpecificRecord($id, $attribute){
 
-        foreach ($this->xmlFile as $data) {
-            if (isset($data->attributes()[$attribute]) && $data->attributes()[$attribute] == $id) {
+        $data = $this->xmlFile->xpath('//*[@'.$attribute.'="' . $id . '"]');
 
-                $json = json_encode($data->children());
-
-                return json_decode($json,TRUE);
-
-            }
+        if(sizeof($data)){
+            $json= json_encode($data);
+            return json_decode($json,TRUE)[0];
 
         }
 
@@ -124,16 +121,13 @@ class XmlService
      */
 
     public function deleteSpecificRecord($id, $attribute){
-        foreach($this->xmlFile as $data)
-        {
-            if(isset($data->attributes()[$attribute]) && $data->attributes()[$attribute] == $id){
 
-                $dom=dom_import_simplexml($data);
-                $dom->parentNode->removeChild($dom);
+        $data = $this->xmlFile->xpath('//*[@'.$attribute.'="' . $id . '"]');
 
-                return $this->saveXml();
-            }
-
+        if(sizeof($data)){
+            $dom=dom_import_simplexml($data[0]);
+            $dom->parentNode->removeChild($dom);
+            return $this->saveXml();
         }
 
         return  false;
