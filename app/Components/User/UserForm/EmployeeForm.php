@@ -39,7 +39,7 @@ class EmployeeForm extends Control
     public function setEdit($employeeId)
     {
         $this->employeeId = $employeeId;
-        $this->employee = $this->employeeFacade->getEmployee($this->employeeId, 'id');
+        $this->employee = $this->employeeFacade->getEmployee($this->employeeId);
 
 
     }
