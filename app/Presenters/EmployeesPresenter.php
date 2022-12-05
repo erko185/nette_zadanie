@@ -18,10 +18,14 @@ final class EmployeesPresenter extends Nette\Application\UI\Presenter
      */
     public $userForm;
 
-
     public $employeeFacade;
 
     private $employeeId;
+
+    /**
+     * EmployeesPresenter constructor.
+     * @param EmployeeFacade $employeeFacade
+     */
 
     public function __construct(EmployeeFacade $employeeFacade)
     {
@@ -30,6 +34,10 @@ final class EmployeesPresenter extends Nette\Application\UI\Presenter
 
     }
 
+    /**
+     * default action for show all employees
+     * @param $page
+     */
 
     public function actionDefault($page)
     {
@@ -64,6 +72,11 @@ final class EmployeesPresenter extends Nette\Application\UI\Presenter
     }
 
 
+    /**
+     * action for set edit and show form with data
+     * @param $id
+     */
+
     public function actionEdit($id)
     {
 
@@ -72,12 +85,22 @@ final class EmployeesPresenter extends Nette\Application\UI\Presenter
 
     }
 
+    /**
+     * action for show form for add new employee
+     */
+
     public function actionForm()
     {
 
         $this->template->title = "Add employee";
 
     }
+
+    /**
+     * action for delete employee
+     * @param $id
+     * @throws Nette\Application\AbortException
+     */
 
     public function actionDelete($id)
     {
@@ -94,6 +117,11 @@ final class EmployeesPresenter extends Nette\Application\UI\Presenter
 
     }
 
+
+    /**
+     * create form for add or edit
+     * @return \App\Components\User\UserForm\EmployeeForm
+     */
 
     protected function createComponentEmployeeForm()
     {

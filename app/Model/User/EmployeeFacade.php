@@ -13,6 +13,10 @@ final class EmployeeFacade
 
     private $xmlService;
 
+    /**
+     * EmployeeFacade constructor.
+     */
+
     public function __construct() {
 
         $this->xmlService = new XmlService(self::XMLROUTE);
@@ -20,6 +24,11 @@ final class EmployeeFacade
     }
 
 
+    /**
+     *  add new employee
+     * @param $data
+     * @return bool
+     */
 
     public function addEmployee($data)
     {
@@ -30,17 +39,35 @@ final class EmployeeFacade
 
     }
 
+    /**
+     * remove employee
+     * @param $id
+     * @return bool
+     */
+
     public function removeEmployee($id){
 
        return $this->xmlService->deleteSpecificRecord($id, 'id');
 
     }
 
+    /*
+     * get specific employee
+     */
+
     public function getEmployee($id){
 
         return $this->xmlService->getSpecificRecord($id, 'id');
 
     }
+
+
+    /**
+     * get all employees
+     * @param $startRecord
+     * @param $endRecord
+     * @return array|mixed
+     */
 
     public function getEmployees($startRecord, $endRecord){
 
@@ -54,6 +81,14 @@ final class EmployeeFacade
 
     }
 
+
+    /**
+     * update specific employee
+     * @param $id
+     * @param $data
+     * @return bool
+     */
+
     public function updateEmployee($id, $data){
 
         $data = $this->createDateCollum($data);
@@ -62,11 +97,22 @@ final class EmployeeFacade
 
     }
 
+    /**
+     * get total employees
+     * @return int
+     */
+
     public function getTotalEmployees(){
 
         return $this->xmlService->getTotalRecods();
 
     }
+
+    /**
+     * create date from data
+     * @param $data
+     * @return mixed
+     */
 
     private function createDateCollum($data){
         $date = $data['year'] . "-" . $data['month'] . "-" . $data['day'];
@@ -79,6 +125,11 @@ final class EmployeeFacade
 
         return $data;
     }
+
+    /**
+     * get employees and his ages
+     * @return array
+     */
 
     public function getAgeAndCount(){
 

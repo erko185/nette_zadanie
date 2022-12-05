@@ -20,12 +20,21 @@ class EmployeeForm extends Control
     private $employee;
 
 
+    /**
+     * EmployeeForm constructor.
+     * @param EmployeeFacade $employeeFacade
+     */
 
     public function __construct(EmployeeFacade $employeeFacade)
     {
         $this->employeeFacade = $employeeFacade;
     }
 
+
+    /**
+     * set employee and employee variable
+     * @param $employeeId
+     */
 
     public function setEdit($employeeId)
     {
@@ -39,6 +48,7 @@ class EmployeeForm extends Control
      * create component form and set rules
      * @return Form
      */
+
     protected function createComponentForm(): Form
     {
 
@@ -101,10 +111,11 @@ class EmployeeForm extends Control
     }
 
     /**
-     * Action for save or edit Data
+     * Action for save or edit data
      * @param array $data
      * @throws \Nette\Application\AbortException
      */
+
     public function formSuccess(array $data): void
     {
 
@@ -133,6 +144,7 @@ class EmployeeForm extends Control
     /**
      * render form
      */
+
     public function render()
     {
         $this->template->setFile(__DIR__ . '/form.latte');

@@ -14,12 +14,22 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
     public $employeeFacade;
 
+    /**
+     * HomepagePresenter constructor.
+     * @param EmployeeFacade $employeeFacade
+     */
+
     public function __construct(EmployeeFacade $employeeFacade)
     {
 
         $this->employeeFacade = $employeeFacade;
 
     }
+
+
+    /**
+     * action for show total employess and show employess with ages
+     */
 
     public function actionDefault()
     {

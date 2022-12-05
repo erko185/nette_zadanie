@@ -12,6 +12,11 @@ class XmlService
     private $xmlFile;
     private $route;
 
+    /**
+     * XmlService constructor.
+     * @param string $route
+     */
+
     public function __construct($route = ""){
         $xmlStr = file_get_contents($route);
         $this->route = $route;
@@ -19,6 +24,14 @@ class XmlService
         $this->xmlFile = new SimpleXMLElement($xmlStr);
     }
 
+
+    /**
+     * insert data into xml file
+     * @param $data
+     * @param $child
+     * @param $attribute
+     * @return bool
+     */
 
     public function createNewRecord($data, $child, $attribute){
 
@@ -35,12 +48,25 @@ class XmlService
 
     }
 
+
+    /**
+     * get total records from xml
+     * @return int
+     */
+
     public function getTotalRecods(){
 
         return $this->xmlFile->count();
 
     }
 
+
+    /**
+     * get one specific record from xml
+     * @param $id
+     * @param $attribute
+     * @return bool|mixed
+     */
 
     public function getSpecificRecord($id, $attribute){
 
@@ -57,6 +83,14 @@ class XmlService
 
         return  false;
     }
+
+    /**
+     * update record in xml
+     * @param $id
+     * @param $data
+     * @param $attribute
+     * @return bool
+     */
 
     public function updateRecord($id, $data, $attribute){
 
@@ -82,6 +116,13 @@ class XmlService
     }
 
 
+    /**
+     * delete one specific record from xml
+     * @param $id
+     * @param $attribute
+     * @return bool
+     */
+
     public function deleteSpecificRecord($id, $attribute){
         foreach($this->xmlFile as $data)
         {
@@ -98,6 +139,15 @@ class XmlService
         return  false;
 
     }
+
+
+    /**
+     * get all records from xml
+     * @param $startRecord
+     * @param $endRecord
+     * @param $nameData
+     * @return mixed
+     */
 
     public function getRecords($startRecord, $endRecord, $nameData){
 
@@ -124,6 +174,11 @@ class XmlService
 
     }
 
+    /**
+     * save xml after modify
+     * @return bool
+     */
+
     public function saveXml(){
 
         if($this->xmlFile->saveXML($this->route)){
@@ -133,6 +188,13 @@ class XmlService
         return  false;
 
     }
+
+    /**
+     * get last attribute id
+     * @param $record
+     * @param $attribute
+     * @return int|SimpleXMLElement
+     */
 
     private function getLastId($record,$attribute){
 
